@@ -1,0 +1,15 @@
+interface Product {
+  name: string;
+  description: string;
+  price: number;
+}
+
+function MyComponent({ product }: { product: Product }) {
+  return (
+    <div key={index}>
+      <h3>{product.name}</h3>
+      <p>{product.description}</p>
+      <span>Price: {product.price}</span>
+    </div>
+  );
+}

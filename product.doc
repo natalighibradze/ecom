@@ -1,0 +1,35 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const Products = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.post('http://localhost:8080/products', {
+      page_size: 20,
+      page_number: 1,
+    })
+      .then(response => {
+        setProducts(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+  return (
+    <div>
+      {
+        products.map((product, index) => (
+          <div key={index}>
+            <h3>{product.name}</h3>
+            <p>{product.description}</p>
+            <span>Price: {product.price}</span>
+          </div>
+        ))
+      }
+    </div>
+  );
+};
+
+export default Products;
