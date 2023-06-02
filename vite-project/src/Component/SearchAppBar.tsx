@@ -13,6 +13,7 @@ import { useAppState } from "../Store/StoreContext";
 import { saveSearchedProducts } from "../Store/action";
 import { useNavigate } from "react-router";
 import cart from "../img/cart.png";
+import { Badge } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -141,9 +142,11 @@ export default function SearchAppBar() {
           >
             Cart
           </Typography> */}
-          <Box onClick={()=>navigate('/cart')} >
+          <Badge badgeContent={state.cart.length} color="secondary">
+     <Box onClick={()=>navigate('/cart')} >
          <img style={{width: '50px', cursor: 'pointer'}} src={cart} alt="cart png" />
-         </Box>
+     </Box>
+</Badge>
         </Toolbar>
       </AppBar>
     </Box>

@@ -38,7 +38,6 @@ function ResponsiveAppBar() {
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           {/* <img src={logo} style={{width: '200px'}}> */}
 
-          </img>
           <Typography
             variant="h6"
             noWrap
@@ -155,6 +154,8 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
+
   );
+
 }
 export default ResponsiveAppBar;
