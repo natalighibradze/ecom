@@ -13,8 +13,17 @@ const reducer = (state: any, action: {
           return{...state, product: action.product}
         case SET_SLIDER_IMAGES : 
           return{...state, sliderImages: action.images}
-        case CART_ITEM: 
-          return {...state, cart: [...state.cart, action.item]}   
+          case CART_ITEM: {
+            const myCartItems  = [...state.cart]
+            const indexOfItem = myCartItems.findIndex((product)=>product.id === action.item.id)
+            if (indexOfItem === -1) {
+              return [...myCartItems, { ...action.item, quantity: 1 }];
+            
+            }
+            const existingProduct = myCartItems[indexOfItem]
+            const updateProductQuantity = {...existingProduct, quantity: existingProduct.quantity + 1}
+            myCartItems[indexOfItem] = updateProductQuantity
+            return { ...state, cart:myCartItems}}
       default:
         return state
     }

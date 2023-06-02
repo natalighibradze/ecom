@@ -13,7 +13,9 @@ function Card({ product }) {
         <img src={product.images[0]} alt="" width="100px" height="100px" />
       </div>
       <div className="card-info">
-        <div>
+      <p>
+             <strong> ${Number(product.price).toFixed(2)}  </strong>
+          </p>
           <h6
           onClick={() => {
  dispatch(selectedProduct(product));
@@ -22,17 +24,15 @@ function Card({ product }) {
           >
             <strong>{product.title} </strong>{" "}
           </h6>
-          <p>
+          {/* <p>
             Brand: <strong>{product?.brand}</strong>
-          </p>
-          <p>
+          </p> */}
+          {/* <p>
             Category: <strong> {product?.categories} </strong>
-          </p>
-          <p>
-            Price: <strong> {Number(product.price).toFixed(2)} $ </strong>
-          </p>
+          </p> */}
         </div>
-        <button style={{ marginTop: "10px" }} onClick={() => dispatch(cartItem(product))}>Add To Cart</button>
+        <div>
+        <button style={{ marginTop: "1x", backgroundColor: "transparent" }} onClick={() => dispatch(cartItem(product))}>Add To Cart</button>
       </div>
     </div>
   );

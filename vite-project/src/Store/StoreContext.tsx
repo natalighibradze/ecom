@@ -1,6 +1,7 @@
 import { createContext, useReducer } from "react";
 import reducer from "./reducer";
 import { useContext } from "react";
+import { useMemo } from "react";
 
 export const AppState = createContext({});
 export const useAppState = () => useContext(AppState);
@@ -17,6 +18,17 @@ const initialState = {
 const StateProvider = ({ children }: childrenProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   console.log(state.product)
+
+  // const totalPrice= useMemo(
+  //   () =>
+  //     state.cart.reduce(
+  //       (acc, current) => acc + Number(current.price) * current.quantity,
+  //       0
+  //     ),
+  //   [state.cart]
+  // );
+  // console.log(totalPrice);
+
   const productsStore = {
     state,
     dispatch,

@@ -35,7 +35,7 @@ const Products = () => {
         justifyContent: "space-between",
       }}
     >
-      {state.searchedProducts.length > 0
+      {state?.searchedProducts?.length > 0
         ? state.searchedProducts.map(
             (product: { id: React.Key | null | undefined }, index: any) => (
               <Card key={product.id} product={product} />

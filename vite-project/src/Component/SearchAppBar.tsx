@@ -142,7 +142,7 @@ export default function SearchAppBar() {
           >
             Cart
           </Typography> */}
-          <Badge badgeContent={state.cart.length} color="secondary">
+          <Badge badgeContent={state?.cart?.length} color="secondary">
      <Box onClick={()=>navigate('/cart')} >
          <img style={{width: '50px', cursor: 'pointer'}} src={cart} alt="cart png" />
      </Box>
