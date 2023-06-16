@@ -23,7 +23,7 @@ const Card: React.FC<Cardprops> = ({ product }) => {
       <div className="card-header">
         <img src={product.images[0]} alt=""  />
       </div>
-      <div className="card-info">
+      <div className="card-infoo">
         <p>
           <strong> $ {Number(product.price).toFixed(2)}</strong>
           <button

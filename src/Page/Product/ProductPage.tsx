@@ -5,10 +5,16 @@ import { cartItem, saveSimilarProducts } from "../../Store/action";
 import "../../Styles/style.scss";
 import Card from "../../Component/Card/Card";
 import { useTranslation } from "react-i18next";
+import BreadCrumbs from "../../BreadCrumps/Breadcrumb";
+
+const isProductAvailable = (product: any) => {
+  return product.quantity > 0;
+};
 
 function ProductPage() {
   const { t } = useTranslation()
   const { product, similarProducts, dispatch } = useAppState();
+  const breadcrumbItems = ['Home', 'Products', 'Electronics', 'Laptops']
   console.log(similarProducts)
   useEffect(() => {
     const getSimilarProducts = async () => {
@@ -21,6 +27,7 @@ function ProductPage() {
         });
         console.log(data);
         dispatch(saveSimilarProducts(data.products));
+        console.log(similarProducts)
       } catch (error) {
         console.log(error);
       }
@@ -31,8 +38,9 @@ function ProductPage() {
   return (
     <div>
       <div>
-        <div className="card-info">
+        <div className="cardd-inffo">
           <div className="product_container">
+          <BreadCrumbs />
             <img
               src={product?.images[0]}
               alt={product?.brand}
@@ -54,10 +62,13 @@ function ProductPage() {
                 {Number(product?.price).toFixed(2)} $
               </strong>
             </p>
+            <p>
+              {isProductAvailable(product) ? t("global.in_stock") : t("global.out_of_stock")}
+            </p>
           </div>
         </div>
         <button className="btn" onClick={() => dispatch(cartItem(product))}>  {t("global.add")} </button>
-        <div style={{ display: "flex", marginTop: "170px" }}>
+        <div style={{ display: "flex", marginTop: "70px" }}>
           {similarProducts.map((product, index) => {
             return <Card key={index} product={product} />
           })}

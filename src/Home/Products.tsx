@@ -19,6 +19,8 @@ import {
   Typography,
 } from "@mui/material";
 import MyCarousel from "../Component/Carouseli/Carousel";
+import "../ProductScss/style.scss"
+
 const categoriesArray = ["tv", "mobile", "tablet"];
 const brandsArray = ["Apple", "Samsung", "Sony", "LG"];
 const Products = () => {
@@ -35,7 +37,8 @@ const Products = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrand, setSelectedBrand] = useState<string>("");
-  const startIndex = pageNumber * 20;
+
+  const startIndex = pageNumber * 24;
   const changePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
   };
@@ -62,7 +65,7 @@ const Products = () => {
         const { data } = await axios.post("http://localhost:8080/products", {
           keyword: selectedCategories ? selectedCategories.toString() : "",
           filter: { brand: selectedBrand ? selectedBrand : "" },
-          page_size: 20,
+          page_size: 24,
           page_number: startIndex,
         });
         if (selectedCategories.length > 0 || selectedBrand !== "") {
@@ -164,7 +167,7 @@ const Products = () => {
         </div>
         <Stack spacing={2} mt={4}>
           <Pagination
-            count={Math.ceil(totalProducts / 20)}
+            count={Math.ceil(totalProducts / 24)}
             page={pageNumber}
             variant="outlined"
             color="secondary"

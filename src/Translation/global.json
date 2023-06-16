@@ -81,7 +81,8 @@
       "signUp": "Sign Up",
       "signIn": "Sign In",
       "not_a_member": "Not A Member?",
-      "title": "Title: "
+      "title": "Title: ",
+      "in_stock" : "In Stock"
     },
     "ge": {
       "is": "არის",
@@ -160,6 +161,7 @@
       "signUp": "დარეგისტრირდი",
       "signIn": "შესვლა",
       "not_a_member": "არ ხართ დარეგისტრირებული?",
-      "title": "სათაური: "
+      "title": "სათაური: ",
+      "in_stock": "ხელმისაწვდომია"
     }
   }

@@ -1,50 +1,54 @@
-
 .product_container {
-    // background-color: rgb(246, 244, 244);
-    // width: 350px;
-    // height: 330px;
-    // margin-left: 2cm;
-  
-    .image_product {
-      width: 300px;
-      height: 300px;
-      margin-left: 0.6cm;
+  width: 350px;
+  height: 330px;
+  margin-left: 2cm;
+
+  .image_product {
+    width: 300px;
+    height: 300px;
+    margin-left: 0.6cm;
+  }
+}
+
+.product-details {
+  align-items: flex-start;
+  margin-left: 18cm;
+  margin-top: -300px;
+  border-bottom: 1px solid black;
+  padding-bottom: 15px;
+  width: 500px;
+
+  p {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
-  .product-details {
-    display: flex;
-    flex-direction: column;
-    margin-left: 18cm;
-    margin-top: -300px;
-    border-bottom: 1px solid black;
-    padding-bottom: 15px;
-    width: 500px;
-  
-    // .brand-name {
-    //   color: black;
-    // }
-  
-    // .category {
-    //   /* Add styling as needed */
-    //   color: black;
-    // }
-  
-    // .price {
-    //   /* Add styling as needed */
-    //   color: black;
-    // }
-  }
-  .btn{
-    background-color: rgb(188, 186, 186);
-    left: 30px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 
-   
+  .brand-name {
+    color: black;
   }
-  .btn:hover{
-    background-color: rgb(231, 227, 227);
-    
+
+  .price {
+    color: black;
   }
+
+  .availability {
+    color: #ff0000; /* Customize the color for the availability */
+  }
+}
+
+.btn {
+  background-color: rgb(188, 186, 186);
+  margin-left: 50px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.btn:hover {
+  background-color: rgb(231, 227, 227);
+}
