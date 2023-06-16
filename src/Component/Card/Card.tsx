@@ -46,16 +46,12 @@ const Card: React.FC<Cardprops> = ({ product }) => {
             navigate("/product");
           }}
         >
-          <p style={{cursor: "pointer", fontSize: "10px", marginTop: "0.2px"}}>{product.title}</p>
+          <p style={{cursor: "pointer", fontSize: "10px", marginTop: "0.2px"}}> {product.title}</p>
          
         </h6>
-        {/* <p>
-          Brand: <strong>{product?.brand}</strong>
-        </p> */}
-        {/* <p>
-          Category: <strong> {product?.categories} </strong>
-          onclick={() => { navigate("/user"); }}
-        </p> */}
+        <p>
+        {t("global.brand")} <strong>{product?.brand}</strong>
+        </p>
        
       </div>
     </div>

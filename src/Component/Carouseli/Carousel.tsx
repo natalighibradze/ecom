@@ -6,7 +6,7 @@ import Mcbook from "../../img/Mcbook.jpg";
 import Tv from "../../img/Tv.jpg";
 import Camera from "../../img/Camera.jpg";
 import { Margin } from "@mui/icons-material";
-import "../../CarosuelScc/style.scss"
+import "../../CarosuelScss/style.scss"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import axios from "axios";
 import { useAppState } from "../../Store/StoreContext";
-import { saveSimilarProducts } from "../../Store/action";
+import { cartItem, saveSimilarProducts } from "../../Store/action";
 import "../../Styles/style.scss";
 import Card from "../../Component/Card/Card";
 import { useTranslation } from "react-i18next";
@@ -32,7 +32,6 @@ function ProductPage() {
     <div>
       <div>
         <div className="card-info">
-          {/* style={{ display: "flex" }} */}
           <div className="product_container">
             <img
               src={product?.images[0]}
@@ -57,7 +56,7 @@ function ProductPage() {
             </p>
           </div>
         </div>
-        <button className="btn">  {t("global.add")} </button>
+        <button className="btn" onClick={() => dispatch(cartItem(product))}>  {t("global.add")} </button>
         <div style={{ display: "flex", marginTop: "170px" }}>
           {similarProducts.map((product, index) => {
             return <Card key={index} product={product} />

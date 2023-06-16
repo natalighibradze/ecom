@@ -9,7 +9,7 @@ const SearchPage = ({ searchTerm }: any) => {
   const { dispatch, searchedProducts, totalProducts } = useAppState();
   const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const startIndex = pageNumber * 10;
+  const startIndex = pageNumber * 20;
 
   const changePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
@@ -20,7 +20,7 @@ const SearchPage = ({ searchTerm }: any) => {
       await axios
         .post(`http://localhost:8080/products`, {
           keyword: searchTerm,
-          page_size: 10,
+          page_size: 20,
           page_number: startIndex,
         })
         .then((response) => {

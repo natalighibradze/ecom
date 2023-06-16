@@ -21,6 +21,7 @@ import logo from "../../img/logo.png";
 import i18next, { changeLanguage } from "i18next";
 import i18n from "../../Translation";
 import { useTranslation } from "react-i18next";
+import { isUserAuthenticated } from "../../helpers/auth";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -89,7 +90,7 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: "white",
+          backgroundColor: "#f5f5f5",
           color: "black",
           boxShadow: "none",
         }}
@@ -121,23 +122,27 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
             <MenuItem value="ge">Geo</MenuItem>
           </Select>
 
-        <Button
-            variant="contained"
-            sx={{
-              borderRadius: "5px",
-              backgroundColor: "black",
-              border: "none",
-              "&:hover": {
-                backgroundColor: "grey",
+          {isUserAuthenticated() && (
+            <Button
+              variant="contained"
+              sx={{
+                borderRadius: "5px",
+                backgroundColor: "black",
                 border: "none",
-              },
-            }} 
-            onClick={() => {
-              navigate("/");
-              handleLogout();
-            }}
-          >     {t("global.logout")}
-          </Button>
+                "&:hover": {
+                  backgroundColor: "grey",
+                  border: "none",
+                },
+              }}
+              onClick={() => {
+                navigate("/");
+                handleLogout();
+              }}
+            >
+              {" "}
+              {t("global.logout")}
+            </Button>
+          )}
 
           <Box>
               <IconButton>
@@ -149,10 +154,11 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
                 {user?.firstName}
               </IconButton>
             </Box>
-          <img
-            style={{ width: "180px" }}
+          <img onClick={()=>navigate('/')}
+            style={{ width: "180px", cursor: "pointer" }}
             src={logo}
             alt="logo png"
+            
           />
           <Button
             variant="contained"
@@ -196,7 +202,7 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
         </Toolbar>
       </AppBar>
       {searchTerm?.length > 0 && (
-        <Box sx={{ position: "fixed", top: 70, left: 0, width: "100%" }}>
+        <Box sx={{ position: "fixed", top: 70, left: 0, width: "100%", zIndex: "1" }}>
           <SarchComponent searchTerm={searchTerm} />
         </Box>
       )}

@@ -4,12 +4,13 @@ import { FC, useEffect, useState } from "react";
 import Card from "../Card/Card";
 import axios from "axios";
 import { saveSearchedProducts } from "../../Store/action";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 type SearchProps = {
   searchTerm: string;
 };
 const SarchComponent: FC<SearchProps> = ({ searchTerm }) => {
   const { searchedProducts, dispatch } = useAppState();
+  const location = useLocation();
   const [clicked, setClicked] = useState(false);
   console.log(searchTerm);
   const nvigate = useNavigate();
@@ -42,10 +43,12 @@ const SarchComponent: FC<SearchProps> = ({ searchTerm }) => {
         {searchTerm.length > 0 && (
           <Paper
             sx={{
-              display: "flex",
+              // display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "space-between",
+              height: '540px',
+              display: location.pathname === "/search" ? "none" : "flex",
             }}
           >
             <Box

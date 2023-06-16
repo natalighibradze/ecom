@@ -23,6 +23,7 @@ import {
 } from "@mui/icons-material";
 import { removeProduct } from "../../Store/action";
 import { useTranslation } from "react-i18next";
+import { isUserAuthenticated } from "../../helpers/auth";
 
 const Cart = () => {
   const { t } = useTranslation()
@@ -38,23 +39,25 @@ const Cart = () => {
   );
 
   const handleCheckout = async () => {
-    await fetch("http://localhost:4000/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: cart }),
-    })
-      .then((response) => {
-        console.log(response)
-        return response.json();
+    if (isUserAuthenticated() && cart.length > 0) {
+      await fetch("http://localhost:4000/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: cart }),
       })
-      .then((response) => {
-        console.log(response)
-        if (response.url) {
-          window.location.assign(response.url);
-        }
-      });
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.url) {
+            window.location.assign(response.url);
+          }
+        });
+    }
   };
 
   console.log(totalPrice);

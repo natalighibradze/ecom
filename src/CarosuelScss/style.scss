@@ -1,9 +1,10 @@
 .home__carousel {
-    width: 100vw;
+    width: 90%;
     max-width: 100%;
-    margin: 0 auto;
+    margin: auto;
     padding: 20px 0;
     height: 500px;
+    z-index: 0;
   }
   
   .home__carousel .react-mui-carousel-item {
