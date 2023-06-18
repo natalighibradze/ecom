@@ -49,3 +49,24 @@ body{
   body::-webkit-scrollbar-thumb {
     background: rgb(85, 85, 85);
   }
+
+  @media only screen and (max-width: 600px) {
+    .card{
+      width: 130px;
+      height: 100px;
+      margin-top: 180px;
+      display: flex;
+    flex-direction: column;
+    justify-content: center;
+      justify-content: space-evenly;
+      &header{
+        display: flex;
+      flex-direction: column;
+      align-items: center;
+      }
+      &img{
+        width: 120px;
+        height: 90px;
+      }
+    }
+  }

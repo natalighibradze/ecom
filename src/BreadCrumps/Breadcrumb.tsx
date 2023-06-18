@@ -1,32 +1,30 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Breadcrumbs, Typography, Link } from '@mui/material';
+import { Link, useLocation } from 'react-router-dom'
+import "../BreadCrumbstyle/style.scss"
 
-const BreadCrumbs = () => {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const pathnames = pathname.split('/').filter((x) => x);
+function Breadcrumbs() {
+  const location = useLocation();
 
   return (
-    <Breadcrumbs sx={{ marginTop: '40px', height: '35px', pl: 2, cursor: "pointer" }}>
-      {pathnames.length > 0 ? (
-        <Link onClick={() => navigate('/')}>Home</Link>
-      ) : (
-        <Typography>Home</Typography>
-      )}
-      {pathnames.map((name, index) => {
-        const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
-        const isLast = index === pathnames.length - 1;
-        return isLast ? (
-          <Typography key={name}>{name}</Typography>
-        ) : (
-          <Link key={name} onClick={() => navigate(routeTo)}>
-            {name}
-          </Link>
-        );
-      })}
-    </Breadcrumbs>
+    <nav>
+      <Link to="/"
+        className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+      >
+        Home
+      </Link>
+      <span className="breadcrumb-arrow">&gt;</span>
+      <Link to="/products"
+        className={location.pathname.startsWith("/products") ? "breadcrumb-active" : "breadcrumb-not-active"}
+      >
+        Products
+      </Link>
+      {/* <span className="breadcrumb-arrow">&gt;</span> */}
+      {/* <Link to="/products/1"
+        className={location.pathname === "/products/1" ? "breadcrumb-active" : "breadcrumb-not-active"}
+      >
+        Product 
+      </Link> */}
+    </nav>
   );
-};
+}
 
-export default BreadCrumbs;
+export default Breadcrumbs;

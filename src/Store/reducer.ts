@@ -6,6 +6,7 @@ import {
   SET_SLIDER_IMAGES,
   DELETE_PRODUCT_FROM_CART,
   SAVE_SIMILAR_PRODUCTS,
+  SAVE_ADMIN_PRODUCTS,
 } from "./action";
 const reducer = (
   state: any,
@@ -63,6 +64,9 @@ const reducer = (
       return {
         ...state,
         similarProducts: action.products
+      };
+      case SAVE_ADMIN_PRODUCTS: {
+        return { ...state, adminProducts: action.products };
       };
     default:
       return state;

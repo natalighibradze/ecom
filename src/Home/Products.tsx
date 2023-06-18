@@ -16,10 +16,14 @@ import {
   Select,
   SelectChangeEvent,
   Stack,
+  TextField,
   Typography,
+  Container,
+  Grid,
 } from "@mui/material";
 import MyCarousel from "../Component/Carouseli/Carousel";
-import "../ProductScss/style.scss"
+import "../ProductScss/style.scss";
+import { useNavigate } from "react-router-dom";
 
 const categoriesArray = ["tv", "mobile", "tablet"];
 const brandsArray = ["Apple", "Samsung", "Sony", "LG"];
@@ -34,10 +38,13 @@ const Products = () => {
     "warning",
   ]);
   const { dispatch, products, totalProducts } = useAppState();
+  const navigate = useNavigate()
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrand, setSelectedBrand] = useState<string>("");
-
+  const [keyWordValue, setKeyWordValue] = useState("");
+  const [minNumber, setMinNumber] = useState(0);
+  const [maxNumber, setMaxNumber] = useState(0);
   const startIndex = pageNumber * 24;
   const changePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
@@ -65,11 +72,38 @@ const Products = () => {
         const { data } = await axios.post("http://localhost:8080/products", {
           keyword: selectedCategories ? selectedCategories.toString() : "",
           filter: { brand: selectedBrand ? selectedBrand : "" },
-          page_size: 24,
+          page_size: minNumber < maxNumber ? 100 : 24,
           page_number: startIndex,
         });
-        if (selectedCategories.length > 0 || selectedBrand !== "") {
+        if (
+          selectedCategories.length > 0 ||
+          selectedBrand !== "" ||
+          keyWordValue
+        ) {
           dispatch(saveProducts(data.products, data.total_found));
+        }
+        if (keyWordValue) {
+          const filteredProducts = data.products.filter((product) => {
+            const title = product.title.toLowerCase();
+            const description = product.description.toLowerCase();
+            const keyWord = keyWordValue.toLowerCase();
+            const filterResults =
+              title.includes(keyWord) || description.includes(keyWord);
+            return filterResults;
+          });
+          return dispatch(
+            saveProducts(filteredProducts, filteredProducts.length)
+          );
+        }
+        if (Number(minNumber) < Number(maxNumber)) {
+          const filterByPrice = data.products.filter((product) => {
+            return (
+              Number(product.price) > Number(minNumber) &&
+              Number(product.price) < Number(maxNumber)
+            );
+          });
+          console.log(filterByPrice);
+          return dispatch(saveProducts(filterByPrice, filterByPrice.length));
         }
         dispatch(saveProducts(data.products, data.total_found));
         dispatch(setSliderImages(data.products));
@@ -78,7 +112,13 @@ const Products = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [startIndex, selectedCategories, selectedBrand]);
+  }, [
+    startIndex,
+    selectedCategories,
+    selectedBrand,
+    keyWordValue.length,
+    minNumber , maxNumber,
+  ]);
   console.log(selectedBrand);
   return (
     <div
@@ -147,7 +187,29 @@ const Products = () => {
                 </div>
               ))}
             </div>
+            <Grid container>
+              <Grid item xs={6}>
+                <TextField
+                  label="min"
+                  value={minNumber}
+                  onChange={(e) => setMinNumber(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="max"
+                  value={maxNumber}
+                  onChange={(e) => setMaxNumber(e.target.value)}
+                />
+              </Grid>
+            </Grid>
           </div>
+ <Typography 
+ variant="h5" color="initial" onClick={() => navigate("/contact")}
+       sx={{fontSize: "15px", color: "lightblue", cursor: "pointer"}} >
+              Contact Us 
+              </Typography> 
+
         </Drawer>
       </div>
       <div>

@@ -5,6 +5,7 @@ export const SET_SLIDER_IMAGES = "SET_SLIDER_IMAGES";
 export const CART_ITEM = "CART_ITEM";
 export const DELETE_PRODUCT_FROM_CART = "DELETE_PRODUCT_FROM_CART";
 export const SAVE_SIMILAR_PRODUCTS = "SAVE_SIMILAR_PRODUCTS";
+export const SAVE_ADMIN_PRODUCTS = "SAVE_ADMIN_PRODUCTS";
 
 export const saveProducts = (products: any, total_found: number) => ({
   type: SAVE_PRODUCTS,
@@ -43,5 +44,10 @@ export const removeProduct = (product: any) => ({
 
 export const saveSimilarProducts = (products: any) => ({
   type: SAVE_SIMILAR_PRODUCTS,
+  products,
+});
+
+export const saveAdminProducts = (products: Product[]) => ({
+  type: SAVE_ADMIN_PRODUCTS,
   products,
 });

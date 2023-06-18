@@ -7,6 +7,8 @@ import Cart from "./Page/Cart/Cart";
 import React from "react";
 import SearchPage from "./Page/SearchPage";
 import UserPage from "./Page/Customer";
+import ContactPage from "./Page/Contact";
+import AdminPage from "./Admin/Products";
 function App() {
   const [searchTerm, setSearchTerm] = React.useState("");
   console.log(searchTerm);
@@ -23,6 +25,8 @@ function App() {
           element={<SearchPage searchTerm={searchTerm} />}
         />
        <Route path="/user" element={<UserPage />} />
+       <Route path="/contact" element={<ContactPage />} />
+       <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </>
   );

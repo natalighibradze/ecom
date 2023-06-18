@@ -2,6 +2,9 @@
   width: 350px;
   height: 330px;
   margin-left: 2cm;
+  display: flex;
+  gap: 30px;
+  cursor: pointer;
 
   .image_product {
     width: 300px;

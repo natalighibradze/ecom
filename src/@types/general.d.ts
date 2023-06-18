@@ -9,6 +9,7 @@ type Product = {
   rating: string;
   amount: string;
   categories: string[];
+  
 };
 
 type CartItem = Product & {
@@ -24,4 +25,5 @@ type AppMainState = {
   cart: CartItem[];
   dispatch: React.Dispatch;
   similarProducts:Product[];
+  adminProducts:Product[];
 };

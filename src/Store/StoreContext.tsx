@@ -11,6 +11,7 @@ export const AppState = createContext<AppMainState>({
   cart: [],
   dispatch: undefined,
   similarProducts:[],
+  adminProducts:[],
 });
 export const useAppState = () => useContext(AppState);
 
@@ -26,6 +27,7 @@ const initialState: AppMainState = {
   cart: [],
   dispatch: undefined,
   similarProducts:[],
+  adminProducts:[],
 };
 const StateProvider = ({ children }: childrenProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
