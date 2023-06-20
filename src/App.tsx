@@ -9,10 +9,9 @@ import SearchPage from "./Page/SearchPage";
 import UserPage from "./Page/Customer";
 import ContactPage from "./Page/Contact";
 import AdminPage from "./Admin/Products";
+import { isUserAuthenticated } from "./helpers/auth";
 function App() {
   const [searchTerm, setSearchTerm] = React.useState("");
-  console.log(searchTerm);
-
   return (
     <>
       <SearchAppBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -26,10 +25,9 @@ function App() {
         />
        <Route path="/user" element={<UserPage />} />
        <Route path="/contact" element={<ContactPage />} />
-       <Route path="/admin" element={<AdminPage />} />
+      { isUserAuthenticated().admin && <Route path="/admin" element={<AdminPage />} />}
       </Routes>
     </>
   );
 }
-
 export default App;

@@ -54,7 +54,7 @@ const Products = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false); 
 
 
-  const startIndex = pageNumber * 24;
+  const startIndex = (pageNumber - 1) * 24;
 
   const changePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
@@ -257,7 +257,7 @@ const Products = () => {
           ))}
         </div>
         <Stack spacing={2} mt={4}>
-          <Pagination
+          <Pagination sx={{marginTop: "40px"}}
             count={Math.ceil(totalProducts / 24)}
             page={pageNumber}
             variant="outlined"

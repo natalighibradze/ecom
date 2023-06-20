@@ -16,6 +16,7 @@ import Register from "../Register";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
 type SigninData = {
   email: string;
   password: string;
@@ -46,6 +47,9 @@ const SignIn: FC<SignInProps> = ({ open, setOpen }) => {
       });
       localStorage.setItem("token", data.AccessToken);
       localStorage.setItem("user", JSON.stringify(data.User));
+      if(values.email === 'admin' && values.password === 'admin'){
+        navigate('admin')
+      }
       setOpen(false);
     },
   });

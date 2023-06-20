@@ -11,7 +11,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import { isUserAuthenticated } from "../../../../../helpers/auth";
-
 type EditProductProps = {
   isEditOpen: boolean;
   setIsEditOpen: Function;
@@ -28,8 +27,6 @@ const validationSchema = yup.object().shape({
   rating: yup.string().required("Username is required"),
   amount: yup.string().required("Username is required"),
 });
-const userAuthenticated = isUserAuthenticated();
-const authorizationKey = userAuthenticated ? userAuthenticated.key : undefined;
 const EditProduct: FC<EditProductProps> = ({
   isEditOpen,
   setIsEditOpen,
@@ -63,11 +60,12 @@ const EditProduct: FC<EditProductProps> = ({
           const { data } = await axios.put(
             `http://localhost:8080/product/${product.id}`,
             values,
-            { headers: { Authorization: authorizationKey } }
+            { headers: { Authorization: isUserAuthenticated().key } }
           );
           console.log(data);
         };
         editProduct();
+        setIsEditOpen(false)
       } catch (error) {
         console.log(error);
       }
@@ -80,7 +78,13 @@ const EditProduct: FC<EditProductProps> = ({
     <Dialog open={isEditOpen} onClose={handleClose}>
       <DialogTitle>Edit Mode </DialogTitle>
       <DialogContent>
-        <Grid container sx={{padding: "20px"}} spacing={1} component="form" onSubmit={handleSubmit}>
+        <Grid
+          container
+          sx={{ padding: "20px" }}
+          spacing={1}
+          component="form"
+          onSubmit={handleSubmit}
+        >
           <Grid item>
             <TextField
               id=""
@@ -147,7 +151,9 @@ const EditProduct: FC<EditProductProps> = ({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button type="submit"  onClick={submitForm}>Done</Button>
+        <Button type="submit" onClick={submitForm}>
+          Done
+        </Button>
       </DialogActions>
     </Dialog>
   );

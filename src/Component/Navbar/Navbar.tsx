@@ -113,10 +113,6 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
           >
 
           </IconButton>
-          <Typography sx={{fontWeight: "700", fontSize: "20px", cursor: "pointer"}}  onClick={() => {
-            navigate("/admin");
-          }}
-          >   {t("global.admin")} </Typography>
           <Select
             id="language-select"
             value={i18n.language}

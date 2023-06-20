@@ -27,8 +27,8 @@ type AppMainState = {
   adminProducts: Product[];
 };
 
-declare module "general" {
-  export type AuthenticatedUser = {
-    key: string;
-  };
-}
+// declare module "general" {
+//   export type AuthenticatedUser = {
+//     key: string;
+//   };
+// }

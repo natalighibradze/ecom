@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppState } from "../../../../Store/StoreContext";
@@ -6,12 +6,31 @@ import { cartItem, selectedProduct } from "../../../../Store/action";
 import Button from "@mui/material/Button";
 import EditProduct from "../../Components/ProductCard/EditProduct/EditProduct";
 import Delete from "./DeletProduct/DeleteProduct";
+import axios from "axios";
+import { isUserAuthenticated } from "../../../../helpers/auth";
 function ProductCard({ product }: { product: Product }) {
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+  const [confirm, setConfirm] = useState(false);
   const { t } = useTranslation();
   const { dispatch } = useAppState();
   const navigate = useNavigate();
+  const deletProduct = async () => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:8080/product/${product.id}`,
+        { headers: { Authorization: isUserAuthenticated().key } }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (confirm) {
+      deletProduct();
+      setConfirm(false);
+    }
+  }, [confirm]);
   return (
     <div className="card">
       <div className="card-header">
@@ -61,7 +80,7 @@ function ProductCard({ product }: { product: Product }) {
           <Button
             variant="outlined"
             color="error"
-            onClick={() => setIsDeleteOpen(true)}
+            onClick={() => setConfirm(true)}
           >
             Delete
           </Button>
@@ -74,20 +93,13 @@ function ProductCard({ product }: { product: Product }) {
           product={product}
         />
       )}
-      {isDeleteOpen && (
+      {/* {isDeleteOpen && (
         <Delete
           isDeleteOpen={isDeleteOpen}
           setIsDeletOpen={setIsDeleteOpen}
           product={product} setProducts={() => {}} />
-      )}
+      )} */}
     </div>
   );
 }
 export default ProductCard;
-
-
-
-
-
-
-

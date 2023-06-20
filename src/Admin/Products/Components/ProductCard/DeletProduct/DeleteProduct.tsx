@@ -13,7 +13,7 @@ type DeleteProds = {
   isDeleteOpen: boolean;
   setIsDeletOpen: Function;
   product: Product;
-  setProducts: Function; // Assuming you have a state variable called "products" in the parent component
+  setProducts: Function; 
 };
 
 const Delete: FC<DeleteProds> = ({
@@ -38,8 +38,6 @@ const Delete: FC<DeleteProds> = ({
        { headers: { Authorization: authorizationKey } }
       );
       setIsDeletOpen(false);
-
-      // Update the products state by removing the deleted product
       setProducts((prevProducts: Product[]) =>
         prevProducts.filter((p) => p.id !== product.id)
       );
