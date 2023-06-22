@@ -1,0 +1,100 @@
+.home__carousel {
+    width: 90%;
+    max-width: 100%;
+    margin: auto;
+    padding: 20px 0;
+    height: 500px;
+    z-index: 0;
+  }
+  
+  .home__carousel .react-mui-carousel-item {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .home__image {
+    max-width: 100%;
+    height: 400px;
+    cursor: pointer;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .home__carousel {
+      display: none;
+    }
+  
+    // .home__image {
+    //  display: none;
+    // }
+  }
+
+//  @media only screen and (max-width: 600px){
+//   .home__carousel {
+//     display: none;
+//   }
+//  }
+  
+  @media only screen and (min-width: 700px){
+
+    .home__carousel {
+width: 730px;
+// width: 100%;
+padding: 20px 0;
+height: 300px;
+z-index: 0;
+margin: auto;
+
+    }
+    .home__carousel .react-mui-carousel-item {
+      display: flex;
+    justify-content: center;
+    }
+    .home__image {
+    width: 600px;
+height: 290px;
+      cursor: pointer;
+    }
+  }
+  @media only screen and (max-width: 1023px) {
+    .home__carousel {
+      width: 730px;
+      // width: 100%;
+      padding: 20px 0;
+      height: 300px;
+      z-index: 0;
+      margin: auto;
+    }
+    .home__carousel .react-mui-carousel-item {
+      display: flex;
+    justify-content: center;
+    }
+    .home__image {
+      width: 600px;
+      height: 280px;
+            cursor: pointer;
+    }
+    
+      @media only screen and (min-width: 1024px) {
+        .home__carousel {
+          width: 90%;
+          max-width: 100%;
+          margin: auto;
+          padding: 20px 0;
+          height: 500px;
+          z-index: 0;
+        }
+        
+        .home__carousel .react-mui-carousel-item {
+          display: flex;
+        justify-content: center;
+        }
+
+        .home__image {
+          max-width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+
+      }
+    }
+  
