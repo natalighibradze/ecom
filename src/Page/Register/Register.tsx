@@ -47,17 +47,33 @@ const Register: FC<RegisterProps> = ({ isRegiterOpen, setIsRegiterOpen }) => {
     initialValues,
     validationSchema,
     onSubmit: async (values: RegisterFormData) => {
-      const { data } = await axios.post("http://localhost:8080/register", {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        phoneNumber: values.phoneNumber,
-        email: values.email,
-        password: values.password,
-      });
-      if(data)  handleClose();
-      console.log(data);
+      try {
+        const registerUser = async () => {
+          return await axios.post("http://localhost:8080/register", {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            phoneNumber: values.phoneNumber,
+            email: values.email,
+            password: values.password,
+          });
+        };
+
+        const registerResponse = await registerUser();
+        const loginResponse = await axios.post("http://localhost:8080/login", {
+          email: values.email,
+          password: values.password,
+        });
+        localStorage.setItem("token", loginResponse.data.AccessToken);
+        localStorage.setItem("user", JSON.stringify(loginResponse.data.User));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsRegiterOpen(false);
+        window.location.reload();
+      }
     },
   });
+
   const handleClick = () => {
     handleSubmit();
   };

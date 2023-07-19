@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppState } from "../../../../Store/StoreContext";
-import { cartItem, selectedProduct } from "../../../../Store/action";
+import { cartItem, saveAdminProducts, selectedProduct } from "../../../../Store/action";
 import Button from "@mui/material/Button";
 import EditProduct from "../../Components/ProductCard/EditProduct/EditProduct";
 import Delete from "./DeletProduct/DeleteProduct";
@@ -13,7 +13,7 @@ function ProductCard({ product }: { product: Product }) {
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [confirm, setConfirm] = useState(false);
   const { t } = useTranslation();
-  const { dispatch } = useAppState();
+  const { dispatch, adminProducts } = useAppState();
   const navigate = useNavigate();
   const deletProduct = async () => {
     try {
@@ -27,6 +27,8 @@ function ProductCard({ product }: { product: Product }) {
   };
   useEffect(() => {
     if (confirm) {
+      const updateProducts = adminProducts.filter(item => item.id !== product.id)
+      dispatch(saveAdminProducts(updateProducts))
       deletProduct();
       setConfirm(false);
     }

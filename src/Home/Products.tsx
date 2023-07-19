@@ -21,6 +21,7 @@ import {
   Container,
   Grid,
   IconButton,
+  Button,
 } from "@mui/material";
 import MyCarousel from "../Component/Carouseli/Carousel";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -28,10 +29,9 @@ import "../ProductScss/style.scss";
 import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
-
+import { isUserAuthenticated } from "../helpers/auth";
 const categoriesArray = ["tv", "mobile", "tablet"];
 const brandsArray = ["Apple", "Samsung", "Sony", "LG"];
-
 const Products = () => {
   const [checkboxColor, setCheckboxColor] = useState([
     "secondary",
@@ -52,13 +52,10 @@ const Products = () => {
   const [minNumber, setMinNumber] = useState(0);
   const [maxNumber, setMaxNumber] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
   const startIndex = (pageNumber - 1) * 24;
-
   const changePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
   };
-
   const handleCheckboxChange = (event: any, category: string) => {
     if (event.target.checked) {
       setSelectedCategories([...selectedCategories, category]);
@@ -68,7 +65,6 @@ const Products = () => {
       setPageNumber(1);
     }
   };
-
   const handleBrandCheckboxChange = (event: any, brand: any) => {
     if (event.target.checked) {
       setSelectedBrand(brand);
@@ -76,7 +72,6 @@ const Products = () => {
       setSelectedBrand("");
     }
   };
-
   useEffect(() => {
     try {
       const getProducts = async () => {
@@ -86,7 +81,6 @@ const Products = () => {
           page_size: minNumber < maxNumber ? 100 : 24,
           page_number: startIndex,
         });
-
         if (
           selectedCategories.length > 0 ||
           selectedBrand !== "" ||
@@ -94,7 +88,6 @@ const Products = () => {
         ) {
           dispatch(saveProducts(data.products, data.total_found));
         }
-
         if (keyWordValue) {
           const filteredProducts = data.products.filter((product: Product) => {
             const title = product.title.toLowerCase();
@@ -104,12 +97,10 @@ const Products = () => {
               title.includes(keyWord) || description.includes(keyWord);
             return filterResults;
           });
-
           return dispatch(
             saveProducts(filteredProducts, filteredProducts.length)
           );
         }
-
         if (Number(minNumber) < Number(maxNumber)) {
           const filterByPrice = data.products.filter((product: Product) => {
             return (
@@ -117,15 +108,12 @@ const Products = () => {
               Number(product.price) < Number(maxNumber)
             );
           });
-
           console.log(filterByPrice);
           return dispatch(saveProducts(filterByPrice, filterByPrice.length));
         }
-
         dispatch(saveProducts(data.products, data.total_found));
         dispatch(setSliderImages(data.products));
       };
-
       getProducts();
     } catch (error) {
       console.log(error);
@@ -138,7 +126,6 @@ const Products = () => {
     minNumber,
     maxNumber,
   ]);
-
   return (
     <div>
       <div
@@ -239,6 +226,11 @@ const Products = () => {
              {t("global.contact")}
           </Typography>
         </div>
+        <div>
+          {isUserAuthenticated().admin && (
+            <Button onClick={() => navigate("/admin")}>Dashboard</Button>
+          )}
+        </div>
       </Drawer>
       <div>
         <MyCarousel />
@@ -274,5 +266,11 @@ const Products = () => {
     </div>
   );
 };
-
 export default Products;
+
+
+
+
+
+
+

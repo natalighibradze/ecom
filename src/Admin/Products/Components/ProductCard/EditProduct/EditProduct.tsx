@@ -12,6 +12,8 @@ import * as yup from "yup";
 import axios from "axios";
 import { isUserAuthenticated } from "../../../../../helpers/auth";
 import { t } from "i18next";
+import { useAppState } from "../../../../../Store/StoreContext";
+import { saveAdminProducts } from "../../../../../Store/action";
 type EditProductProps = {
   isEditOpen: boolean;
   setIsEditOpen: Function;
@@ -33,6 +35,7 @@ const EditProduct: FC<EditProductProps> = ({
   setIsEditOpen,
   product,
 }) => {
+  const { adminProducts, dispatch } = useAppState();
   const initialValues: Product = {
     id: product.id,
     title: product.title,
@@ -67,11 +70,19 @@ const EditProduct: FC<EditProductProps> = ({
         };
         editProduct();
         setIsEditOpen(false)
-      } catch (error) {
-        console.log(error);
-      }
+     
+} catch (error) {
+  console.log(error);
+} finally {
+    const updateProducts = adminProducts.filter(item => item.id !== product.id)
+    dispatch(saveAdminProducts(updateProducts))
+    setIsEditOpen(false)
+  
+}
     },
   });
+  
+
   const handleClose = () => {
     setIsEditOpen(false);
   };
