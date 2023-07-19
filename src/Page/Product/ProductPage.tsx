@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAppState } from "../../Store/StoreContext";
 import { cartItem, saveSimilarProducts } from "../../Store/action";
-import "../../Styles/style.scss";
+import "../../ProductScss/style.scss"
 import Card from "../../Component/Card/Card";
 import { useTranslation } from "react-i18next";
 import BreadCrumbs from "../../BreadCrumps/Breadcrumb";

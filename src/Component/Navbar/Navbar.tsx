@@ -23,7 +23,6 @@ import i18n from "../../Translation";
 import { useTranslation } from "react-i18next";
 import { isUserAuthenticated } from "../../helpers/auth";
 import "../../NavbarScss/style.scss"
-
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: "50px",
@@ -38,7 +37,6 @@ const Search = styled("div")(({ theme }) => ({
     width: "auto",
   },
 }));
-
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -48,7 +46,6 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -64,14 +61,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
 const Navbar = ({ searchTerm, setSearchTerm }: any) => {
   const { t } = useTranslation();
+  const token = localStorage.getItem("token");
   const { dispatch, cart } = useAppState();
   const navigate = useNavigate();
   const [isSignInOpen, setIsSignInOpen] = useState<boolean>(false);
-  
-
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
   };
@@ -83,15 +78,13 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
     const selectedLanguage = event.target.value;
     i18next.changeLanguage(selectedLanguage);
   };
-  
   const user = JSON.parse(localStorage.getItem("user") as string);
-
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar 
+      <AppBar
         position="static"
         sx={{
-          backgroundColor: "#f5f5f5",
+          backgroundColor: "#F5F5F5",
           color: "black",
           boxShadow: "none",
         }}
@@ -112,9 +105,8 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-
           </IconButton>
-          <Select 
+          <Select
             id="language-select"
             value={i18n.language}
             onChange={changeLanguage}
@@ -122,8 +114,7 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
             <MenuItem value="en">Eng</MenuItem>
             <MenuItem value="ge">Geo</MenuItem>
           </Select>
-
-          {isUserAuthenticated() && (
+          {token && (
             <Button
               variant="contained"
               sx={{
@@ -144,22 +135,21 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
               {t("global.logout")}
             </Button>
           )}
-
           <Box>
               <IconButton>
-                <Avatar onClick={() => {
-            navigate("/user");
-          }}
+              <Avatar onClick={() => {
+                if (user) {
+                  navigate("/user");
+                }
+              }}
                 />
-
                 {user?.firstName}
               </IconButton>
             </Box>
           <img onClick={()=>navigate('/')}
             style={{ width: "180px", cursor: "pointer" }}
-            src={logo} 
+            src={logo}
             alt="logo png"
-            
           />
           <Button className="nav-button"
             variant="contained"
@@ -175,7 +165,6 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
             onClick={() => setIsSignInOpen((prev) => !prev)}
           >
             {t("global.become_a_member")}
-           
           </Button>
           <SignIn open={isSignInOpen} setOpen={setIsSignInOpen} />
           <Search>
@@ -210,5 +199,4 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
     </Box>
   );
 };
-
 export default Navbar;

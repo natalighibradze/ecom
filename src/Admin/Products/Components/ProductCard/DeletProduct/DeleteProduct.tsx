@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { isUserAuthenticated } from "../../../../../helpers/auth";
 import { useNavigate } from "react-router-dom";
+import { useAppState } from "../../../../../Store/StoreContext";
+
 
 type DeleteProds = {
   isDeleteOpen: boolean;
@@ -22,6 +24,9 @@ const Delete: FC<DeleteProds> = ({
   product,
   setProducts,
 }) => {
+  
+
+  const {adminProducts, dispatch} = useAppState()
   const [confirm, setConfirm] = useState(false);
   const navigate = useNavigate();
   const userAuthenticated = isUserAuthenticated();
